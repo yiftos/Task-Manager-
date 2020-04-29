@@ -24,7 +24,7 @@ export const TaskDetail = ({task, name, id, isComplete, groups,setTaskCompletion
 )
 
 const mapStateToProps = (state, ownProps)=>{
-    let id = 'T1'// ownProps.match.params.id
+    let id = ownProps.match.params.id
     let task = state.tasks.find(task=>task.id === id);
     let groups = state.groups;
     return {
@@ -36,7 +36,7 @@ const mapStateToProps = (state, ownProps)=>{
 }
 
 const mapDispatchToProps = (dispatch, ownProps)=>{
-    const id = 'T1'//ownProps.match.params.id
+    const id = ownProps.match.params.id
     console.log(id)
     return{
         setTaskCompletion(id, isComplete){

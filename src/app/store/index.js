@@ -6,15 +6,17 @@ import {defaultState} from "../../server/defaultState"
 // import { reducer } from './reducer'
 
 const sagaMiddleware = createSagaMiddleware();
-import * as sagas from './sagas.mock'
+// import * as sagas from './sagas.mock'
+import * as sagas from './sagas'
 import * as mutations from './mutations'
 
 export const store = createStore(
     combineReducers({
-            tasks(tasks = defaultState.tasks, action){
+            tasks(tasks = [], action){
                 switch(action.type){
+                    case mutations.SET_STATE:
+                        return action.state.tasks 
                     case mutations.CREATE_TASK:
-                        // console.log("yiftah monday")
                         return [...tasks,{
                             id:action. taskID,
                             name: "New Task",
@@ -37,13 +39,30 @@ export const store = createStore(
                 }
                 return tasks
             },
-            comments(comments = defaultState.comments){
+            session(userSession = defaultState.session||{}, action){
+                let {type, authenticated, session } = action
+                switch(type){
+                    case mutations.SET_STATE:
+                        return {...userSession, id: action.state.session.id}
+                    case mutations.REQUEST_AUTHENTICATE_USER:
+                        return {...userSession, authenticated: mutations.AUTHENTICATING}
+                    case mutations.PROCESSING_AUTHENTICATE_USER:
+                        return {...userSession, authenticated}
+                    default:
+                        return userSession
+                }
+            },
+            comments(comments = []){
                 return comments
             },
-            groups(groups = defaultState.groups){
+            groups(groups = [], action){
+                switch(action.type){
+                    case mutations.SET_STATE:
+                        return action.state.groups
+                }
                 return groups
             },
-            users(users = defaultState.users){
+            users(users = []){
                 return users
             }
         }),

@@ -1,7 +1,8 @@
 import { take, put, select } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import * as mutations from './mutations';
-import { v4 as uuidv4 } from 'uuid';import {  }from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
+import {  }from 'react-router';
 import { history } from './history';
 
 /**
